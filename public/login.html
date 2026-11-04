@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>登录 · NVIDIA 免费模型</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2376b900'/%3E%3Cpath d='M20 44V20h6l12 16V20h6v24h-6L26 28v16z' fill='%230b0d0f'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="setup-page">
+    <main class="setup-wrap">
+      <div class="setup-brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="1" y="1" width="30" height="30" rx="9" fill="#76b900" />
+          <path d="M9.5 22.5v-13h3.1l6.8 8.4V9.5h3.1v13h-3.1l-6.8-8.4v8.4z" fill="#0b0d0f" />
+        </svg>
+        <div class="brand-text">
+          <h1>NVIDIA 免费模型</h1>
+          <p>build.nvidia.com · Free Endpoint</p>
+        </div>
+      </div>
+
+      <form id="login-form" class="setup-card" novalidate>
+        <header class="setup-head">
+          <h2>登录面板</h2>
+          <p>输入配置里的网页访问口令 NV_MODELS_TOKEN</p>
+        </header>
+
+        <div class="setup-field">
+          <label class="setup-label" for="token">访问口令</label>
+          <div class="setup-input-row">
+            <input
+              id="token"
+              type="password"
+              placeholder="NV_MODELS_TOKEN"
+              autocomplete="current-password"
+              spellcheck="false"
+              autofocus
+            />
+            <button
+              id="token-toggle"
+              class="setup-eye"
+              type="button"
+              aria-label="显示口令"
+              aria-pressed="false"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p id="login-error" class="setup-alert setup-alert-error" role="alert" hidden></p>
+
+        <button id="login-submit" class="btn-primary setup-submit" type="submit">登录</button>
+      </form>
+
+      <p class="setup-foot">
+        登录状态保留 7 天 · 2026 by
+        <a href="https://github.com/lovefc" target="_blank" rel="noopener noreferrer">lovefc</a>
+      </p>
+    </main>
+
+    <noscript>
+      <div class="noscript">这个页面需要启用 JavaScript。</div>
+    </noscript>
+
+    <script src="/login.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>NVIDIA 免费模型</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2376b900'/%3E%3Cpath d='M20 44V20h6l12 16V20h6v24h-6L26 28v16z' fill='%230b0d0f'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="progress" class="progress" hidden aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="1" y="1" width="30" height="30" rx="9" fill="#76b900" />
+            <path d="M9.5 22.5v-13h3.1l6.8 8.4V9.5h3.1v13h-3.1l-6.8-8.4v8.4z" fill="#0b0d0f" />
+          </svg>
+          <div class="brand-text">
+            <h1>NVIDIA 免费模型</h1>
+            <p>build.nvidia.com · Free Endpoint</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div id="meta" class="meta" role="status" aria-live="polite">加载中…</div>
+          <a
+            class="github-link"
+            href="https://github.com/lovefc/nv-models"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="打开 GitHub 项目"
+            title="GitHub 项目"
+          >
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z" />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a id="settings" class="header-settings" href="/setup" hidden aria-label="设置" title="设置">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+            <span>设置</span>
+          </a>
+          <button id="logout" class="btn-ghost header-logout" type="button" hidden>退出</button>
+          <button id="refresh" class="btn-primary" type="button" hidden>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M20 11a8 8 0 0 0-14.9-4M4 4v5h5M4 13a8 8 0 0 0 14.9 4M20 20v-5h-5" />
+            </svg>
+            <span>刷新</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div id="error" class="banner" role="alert" hidden>
+        <div class="banner-body">
+          <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v6M12 17h.01" />
+          </svg>
+          <div>
+            <strong id="error-title">刷新失败</strong>
+            <span id="error-text"></span>
+          </div>
+        </div>
+        <button id="error-retry" class="btn-ghost" type="button">重试</button>
+      </div>
+
+      <section class="toolbar" aria-label="搜索和排序">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+          <input
+            id="search"
+            type="search"
+            placeholder="搜索模型、发布方、标签…"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="搜索模型"
+          />
+          <button id="search-clear" class="search-clear" type="button" aria-label="清除搜索" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m7 7 10 10M17 7 7 17" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="select-wrap">
+          <label class="sr-only" for="sort">排序</label>
+          <select id="sort">
+            <option value="newest">最新发布</option>
+            <option value="added">最近收录</option>
+            <option value="name">名称 A-Z</option>
+            <option value="publisher">发布方</option>
+            <option value="ttft">首字最快</option>
+            <option value="tps">生成最快</option>
+            <option value="speed">综合最快</option>
+          </select>
+          <svg class="select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </div>
+      </section>
+
+      <section id="filter-row" class="filter-row" aria-label="发布方筛选">
+        <div id="publishers" class="chips"></div>
+        <button id="tag-filter" class="chip chip-active" type="button" hidden></button>
+      </section>
+
+      <div class="result-line">
+        <span id="result-count"></span>
+        <button id="clear-filters" class="linklike" type="button" hidden>清除筛选</button>
+      </div>
+
+      <section id="grid" class="grid" aria-live="polite" aria-label="模型列表"></section>
+
+      <section id="empty" class="empty" hidden>
+        <div id="empty-spinner" class="spinner" hidden aria-hidden="true"></div>
+        <svg id="empty-icon" class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z" />
+          <path d="M4 7.5 12 12l8-4.5M12 12v9" />
+        </svg>
+        <h2 id="empty-title"></h2>
+        <p id="empty-desc"></p>
+        <button id="empty-action" class="btn-primary" type="button" hidden></button>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>2026 by <a href="https://github.com/lovefc" target="_blank" rel="noopener noreferrer">lovefc</a></span>
+    </footer>
+
+    <dialog id="usage-dialog" class="usage-dialog" aria-labelledby="usage-title">
+      <div class="usage-panel">
+        <header class="usage-head">
+          <div class="usage-head-text">
+            <h2 id="usage-title"></h2>
+            <p id="usage-sub"></p>
+          </div>
+          <button id="usage-close" class="usage-close" type="button" aria-label="关闭">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m7 7 10 10M17 7 7 17" />
+            </svg>
+          </button>
+        </header>
+        <div id="usage-tabs" class="usage-tabs" role="tablist" aria-label="客户端">
+          <button
+            id="usage-tab-qoder"
+            class="usage-tab is-active"
+            type="button"
+            role="tab"
+            data-tab="qoder"
+            aria-selected="true"
+            aria-controls="usage-body"
+          >
+            Qoder
+          </button>
+          <button
+            id="usage-tab-workbuddy"
+            class="usage-tab"
+            type="button"
+            role="tab"
+            data-tab="workbuddy"
+            aria-selected="false"
+            aria-controls="usage-body"
+            tabindex="-1"
+          >
+            WorkBuddy
+          </button>
+          <button
+            id="usage-tab-zcode"
+            class="usage-tab"
+            type="button"
+            role="tab"
+            data-tab="zcode"
+            aria-selected="false"
+            aria-controls="usage-body"
+            tabindex="-1"
+          >
+            ZCode
+          </button>
+        </div>
+        <div id="usage-body" class="usage-body" role="tabpanel" aria-labelledby="usage-tab-qoder"></div>
+        <p id="usage-hint" class="usage-hint"></p>
+        <section id="usage-setup" class="usage-setup" aria-live="polite" hidden></section>
+      </div>
+    </dialog>
+
+    <noscript>
+      <div class="noscript">这个页面需要启用 JavaScript。</div>
+    </noscript>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

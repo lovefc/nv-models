@@ -1,0 +1,69 @@
+# nv-models 单域名反向代理示例
+#
+# 推荐直接运行一键脚本，自动识别证书、修改 .env 并验证 HTTPS：
+#   sudo bash /opt/nv-models/deploy/bind-domain.sh nv.example.com
+# 本文件仅作手动配置参考。
+#
+# 一个域名、一张证书同时提供网页和 OpenAI 兼容 API：
+#   网页：https://nv.example.com/
+#   API ：https://nv.example.com/v1
+#
+# 使用前：
+# 1. 把 nv.example.com 全部换成你的域名；
+# 2. 把证书路径换成实际路径（下面是 certbot 的默认路径）；
+# 3. 在 /opt/nv-models/.env 中设置：
+#      NV_MODELS_HOST=127.0.0.1
+#      NV_GATEWAY_HOST=127.0.0.1
+#      NV_GATEWAY_URL=https://nv.example.com/v1
+#      NV_TRUST_PROXY=1
+# 4. 检查并重载：nginx -t && systemctl reload nginx
+# 5. 防火墙 / 安全组只放行 80 和 443，18787、18788 不用对外开放。
+
+server {
+    listen 80;
+    server_name nv.example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name nv.example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/nv.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/nv.example.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_session_cache shared:SSL:10m;
+
+    # 与 .env 的 MAX_BODY_MB（默认 40）保持一致
+    client_max_body_size 40m;
+
+    # 公共代理头：NV_TRUST_PROXY=1 依靠这些头识别真实客户端 IP
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Connection "";
+
+    # OpenAI 兼容 API。
+    # proxy_pass 末尾不要加 /，否则会把 /v1 前缀去掉。
+    location /v1/ {
+        proxy_pass http://127.0.0.1:18787;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 600s;
+        proxy_send_timeout 600s;
+    }
+
+    # 健康检查，供 tools/setup-clients.mjs check 使用
+    location = /health {
+        proxy_pass http://127.0.0.1:18787;
+        proxy_read_timeout 15s;
+    }
+
+    # 网页和网页接口
+    location / {
+        proxy_pass http://127.0.0.1:18788;
+        proxy_read_timeout 120s;
+    }
+}

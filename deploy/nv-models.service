@@ -1,0 +1,28 @@
+[Unit]
+Description=NVIDIA Free Models Browser + OpenAI API Gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/nv-models
+EnvironmentFile=/opt/nv-models/.env
+ExecStart=/usr/bin/node /opt/nv-models/src/server.mjs
+User=nv-models
+Group=nv-models
+Restart=always
+RestartSec=5
+TimeoutStopSec=20
+KillMode=mixed
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

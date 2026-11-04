@@ -1,0 +1,20 @@
+{
+  "name": "nv-models-collector",
+  "version": "0.8.1",
+  "private": true,
+  "type": "module",
+  "description": "NVIDIA 免费模型浏览 + OpenAI 兼容网关：单进程启动网页与 API",
+  "engines": {
+    "node": ">=20.18"
+  },
+  "scripts": {
+    "start": "node src/service.mjs start",
+    "start:open": "node src/service.mjs start --open",
+    "stop": "node src/service.mjs stop",
+    "restart": "node src/service.mjs restart",
+    "status": "node src/service.mjs status",
+    "dev": "node src/server.mjs",
+    "collect": "node src/collector.mjs",
+    "collect:stale": "node src/collector.mjs --if-stale --ttl 8h"
+  }
+}
