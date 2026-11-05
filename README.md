@@ -181,7 +181,7 @@ sudo bash /opt/nv-models/deploy/bind-domain.sh 你的域名 --dry-run
 
 ## 安全提示
 
-- 部署到局域网或公网时，务必设置网页和 API 的访问口令。
+- 部署到局域网或公网时，可以设置网页和 API 的访问口令。
 - 本机使用可以不设口令；服务器部署脚本默认会生成口令并开启校验。
 - NVIDIA Key 只保存在服务端，网页不会把完整 Key 返回给浏览器。
 - 登录会话保存在浏览器 Cookie 中（HttpOnly），HTTPS 下自动加 Secure；`data/session-secret` 是签名密钥，不要公开或打包分享。
