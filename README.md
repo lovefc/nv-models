@@ -22,7 +22,7 @@
 
 测速功能是测试在当前网络下，哪个模型更快，免费端点有排队和限流，测速结果只适合横向参考。
 
-克隆此仓库到本地，如果你懒得看使用介绍，直接让AI给你启动就行，不会git或者怕麻烦，你可以直接用这句提示词告诉AI: 请帮我下载这个https://github.com/lovefc/nv-models.git仓库，并且启动它运行。
+克隆此仓库到本地，如果你懒得看使用介绍，直接让AI给你启动就行，不会git或者怕麻烦，你可以直接用这句提示词告诉AI: 请帮我下载这个 github.com/lovefc/nv-models 仓库，并且启动它运行。
 
 现在的AI非常方便了，没有菜鸟，都是天才。
 
@@ -205,4 +205,4 @@ sudo bash /opt/nv-models/deploy/bind-domain.sh 你的域名 --dry-run
 
 ## 开源说明
 
-这是一个开源项目，2026 by lovefc（<https://github.com/lovefc>），欢迎提交问题和改进。使用前请先阅读 NVIDIA 的相关服务条款，感谢 NVIDIA 提供的免费服务。
+这是一个开源项目，2026 by lovefc，欢迎提交问题和改进。使用前请先阅读 NVIDIA 的相关服务条款，感谢 NVIDIA 提供的免费服务。
